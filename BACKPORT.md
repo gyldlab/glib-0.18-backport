@@ -28,7 +28,8 @@ The existing `StrV` test also includes upstream's test-only correction
 [`107ad15`](https://github.com/gtk-rs/gtk-rs-core/commit/107ad15cce3a3292c3d5a3a64b09e0017d28275a).
 It repairs five invalid slice accesses while preserving every terminator,
 length and content assertion. This is required to run the existing test suite
-meaningfully on current Rust; no production `StrV` implementation is changed.
+meaningfully on current Rust. This test-only correction leaves the production
+implementation unchanged.
 
 Consumers must pin an immutable Git revision. The package version remains
 0.18.5 for compatibility; a version-based advisory scanner may still report it.
