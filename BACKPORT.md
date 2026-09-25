@@ -17,7 +17,8 @@ The production changes are the exact accepted upstream corrections from:
 - [PR 1491](https://github.com/gtk-rs/gtk-rs-core/pull/1491), initializing the
   terminating pointer on initial allocation in `StrV` and `PtrSlice`.
 - [PR 2038](https://github.com/gtk-rs/gtk-rs-core/pull/2038), restoring the empty
-  terminator after `StrV::clear()` releases its elements.
+  terminator after `StrV::clear()` releases its elements, including its ordinary
+  unit test for clear and destruction on the corrected implementation.
 
 The latter two source defects were confirmed to apply to the published 0.18.5
 implementation. They preserve signatures, capacity policy and ownership.

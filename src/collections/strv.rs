@@ -1548,4 +1548,13 @@ mod test {
         assert!(strv.contains("str2"));
         assert!(!strv.contains("str4"));
     }
+
+    #[test]
+    fn test_clear_no_double_free() {
+        let mut strv = StrV::from(&["one", "two", "three"][..]);
+        assert_eq!(strv.len(), 3);
+        strv.clear();
+        assert_eq!(strv.len(), 0);
+        // drop must not double-free
+    }
 }
