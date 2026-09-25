@@ -10,9 +10,18 @@ Its original source commit is
 The published, normalized Cargo manifest is retained so the existing registry
 versions of the sibling GLib bindings remain unchanged.
 
-The only production Rust change is the two-line correction from
-[upstream PR 1343](https://github.com/gtk-rs/gtk-rs-core/pull/1343), addressing
-[RUSTSEC-2024-0429](https://rustsec.org/advisories/RUSTSEC-2024-0429.html).
+The production changes are the exact accepted upstream corrections from:
+
+- [PR 1343](https://github.com/gtk-rs/gtk-rs-core/pull/1343), addressing
+  [RUSTSEC-2024-0429](https://rustsec.org/advisories/RUSTSEC-2024-0429.html).
+- [PR 1491](https://github.com/gtk-rs/gtk-rs-core/pull/1491), initializing the
+  terminating pointer on initial allocation in `StrV` and `PtrSlice`.
+- [PR 2038](https://github.com/gtk-rs/gtk-rs-core/pull/2038), restoring the empty
+  terminator after `StrV::clear()` releases its elements.
+
+The latter two source defects were confirmed to apply to the published 0.18.5
+implementation. They preserve signatures, capacity policy and ownership.
+Keld application-path reachability is not established by this source review.
 The MIT license and upstream copyright notices are retained.
 
 The existing `StrV` test also includes upstream's test-only correction
@@ -23,7 +32,7 @@ meaningfully on current Rust; no production `StrV` implementation is changed.
 
 Consumers must pin an immutable Git revision. The package version remains
 0.18.5 for compatibility; a version-based advisory scanner may still report it.
-This patch addresses only the named advisory and does not establish that the
+This copy addresses the named corrections and does not establish that the
 unsupported release line is free of other defects.
 
 Keld tracks qualification in KEL-201 and supported replacement in KEL-253.

@@ -698,6 +698,9 @@ impl StrV {
                     .checked_mul(new_capacity)
                     .unwrap(),
             ) as *mut *mut c_char;
+            if self.capacity == 0 {
+                *new_ptr = ptr::null_mut();
+            }
             self.ptr = ptr::NonNull::new_unchecked(new_ptr);
             self.capacity = new_capacity;
         }
@@ -723,6 +726,10 @@ impl StrV {
         unsafe {
             for i in 0..self.len {
                 ffi::g_free(*self.ptr.as_ptr().add(i) as ffi::gpointer);
+            }
+
+            if self.capacity != 0 {
+                *self.ptr.as_ptr().add(0) = ptr::null_mut();
             }
 
             self.len = 0;
